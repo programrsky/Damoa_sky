@@ -7,14 +7,7 @@ import LoginPage from './LoginPage';
 
 export default function Navbar() {
     const [activeItem, setActiveItem] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const location = useLocation();
-    useEffect(() => {
-        // Check if user_id is present in local storage
-        const userId = localStorage.getItem('user_id');
-        console.log("Checking local storage for user_id:", userId);
-        setIsLoggedIn(!!userId);
-    }, []);
 
     useEffect(() => {
         // 경로가 바뀔 때마다 activeItem 상태를 업데이트합니다.
@@ -29,11 +22,6 @@ export default function Navbar() {
             setActiveItem('upcoming');
         }
     }, [location]);
-    
-    const handleLogout = () => {
-        localStorage.removeItem('user_id');
-        setIsLoggedIn(false);
-    };
 
     return (
         <div className={styles.container}>
@@ -75,25 +63,10 @@ export default function Navbar() {
             </div>
             {/* Navbar Icons */}
             <div className={styles.menuContainer}>
-                {isLoggedIn ? (
-                    <UserIcon onLogout={handleLogout} />
-                ) : (
-                    <LoginPage onLoginSuccess={() => setIsLoggedIn(true)} />
-                )}
+                <LoginPage />
                 <SearchIcon />
                 <NotificationIcon />
             </div>
-        </div>
-    );
-}
-
-function UserIcon({ onLogout }) {
-    return (
-        <div onClick={onLogout} style={{ cursor: 'pointer' }}>
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 100 100">
-                <circle cx="50" cy="30" r="20" fill="#FFF"/>
-                <path d="M50,58c-22.09,0-40,17.91-40,40h80C90,75.91,72.09,58,50,58z" fill="#FFF"/>
-            </svg>
         </div>
     );
 }

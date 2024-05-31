@@ -2,7 +2,7 @@ import style from '../css/LoginForm.module.css';
 import { useState } from 'react';
 import axios from "axios";
 
-export default function LoginForm({ onLoginSuccess }) {
+export default function LoginForm() {
     const [user_id, setUsername] = useState("");
     const [user_pw, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState('');
