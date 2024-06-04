@@ -1,4 +1,4 @@
-import style from '../css/MainRating.module.css';
+import style from '../css/Rating.module.css';
 
 export default function StarRatingHalf() {
     return (

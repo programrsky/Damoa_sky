@@ -1,5 +1,5 @@
-import style from '../css/Language.module.css';
-import GenreIcon from '../svg/GenreIcon';
+import style from '../../../css/Language.module.css';
+import GenreIcon from '../../../svg/GenreIcon';
 // import style from "../module-css/Genre.module.css";
 
 export default function Genre() {

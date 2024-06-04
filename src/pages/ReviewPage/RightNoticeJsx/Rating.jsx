@@ -1,8 +1,8 @@
-import style from '../css/Rating.module.css';
-import StarContent from '../svg/StarContent';
-import StarRating from '../svg/StarRating';
-import StarRatingHalf from '../svg/StarRatingHalf';
-import EmptyStarRating from '../svg/EmptyStarRating';
+import style from '../../../css/Rating.module.css';
+import StarContent from '../../../svg/StarContent';
+import StarRating from '../../../svg/StarRating';
+import StarRatingHalf from '../../../svg/StarRatingHalf';
+import EmptyStarRating from '../../../svg/EmptyStarRating';
 
 export default function Rating() {
     return (
