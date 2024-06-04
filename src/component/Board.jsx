@@ -24,7 +24,7 @@ const Board = () => {
                 if (response.data.valid) {
                     setData(response.data.data);
                 } else {
-                    setErrorMessage('아이디 또는 비밀번호가 잘못되었습니다.');
+                    setErrorMessage('리스트를 불러오는데 실패하였습니다.');
                 }
             } catch (error) {
                 setErrorMessage('데이터베이스 연결이 실패하였습니다.');
