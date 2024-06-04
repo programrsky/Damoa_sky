@@ -1,46 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from '../css/Notice.module.css';
 
 export default function NoticeBox() {
-    const [notices, setNotices] = useState([]);
-
-    useEffect(() => {
-        const fetchNotices = async () => {
-            try {
-                const response = await fetch(`${baseURL}/api/notice_select`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ count: 3 }) // Sending count as a POST parameter
-                });
-                if (!response.ok) {
-                    throw new Error('Failed to fetch notices');
-                }
-                const data = await response.json();
-                setNotices(data);
-            } catch (error) {
-                console.error('Error fetching notices:', error);
-            }
-        };
-
-        fetchNotices();
-    }, []); // Empty dependency array to ensure the effect runs only once on component mount
-
     return (
-        <div className={styles.container}>
-            {notices.map((notice, index) => (
-                <div key={index} className={styles.box}>
-                    <p className={`${styles['text-block']} ${styles.title}`}>{notice.title}</p>
-                    <p className={styles['text-block']}>{notice.content}</p>
-                </div>
-            ))}
+        // <div className={styles.container}>
+        <div className={styles.box}>
+            <p className={`${styles['text-block']} ${styles.title}`}>공지사항</p>
+            <p className={styles['text-block']}>
+                리뷰 작성 시 유의사항: 상호 존중과 건전한 커뮤니티 문화 조성을 위해, 비방이나 욕설이 포함된 리뷰는
+                삼가해 주시기 바랍니다. 객관적이고 상세한 리뷰가 다른 이용자에게 큰 도움이 됩니다.
+            </p>
         </div>
+        // </div>
     );
-}
-
-let baseURL = '';
-if (process.env.NODE_ENV === 'development') {
-    // If in development environment, use local IP
-    baseURL = 'http://121.139.20.242:5100';
 }

@@ -32,6 +32,10 @@ export default function SignUpForm({ openLoginModal }) {
             setErrorMessage('전화번호는 11글자 이상이어야 합니다.');
             return;
         }
+        if (!user_date) {
+            setErrorMessage('생년 월일을 입력해주세요');
+            return;
+        }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(user_email)) {
             setErrorMessage('유효한 이메일 형식이 아닙니다.');
@@ -140,9 +144,9 @@ export default function SignUpForm({ openLoginModal }) {
             </div>
             <div className={style.register}>
                 <div className={style.register__container}>
-                    <a className={style.register__title} onClick={openLoginModal}>
+                    <as className={style.register__title} onClick={openLoginModal}>
                         로그인 하러 가기
-                    </a>
+                    </as>
                 </div>
             </div>
         </div>
