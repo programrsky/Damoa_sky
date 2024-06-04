@@ -26,7 +26,11 @@ const PostDetail = () => {
                     params: { notice_id: noticeId },
                 });
                 if (response.data.valid) {
-                    setPost(response.data.data[0]); // Assuming we always get a single item in the data array
+                    if (response.data.data[0].notice_auth === 1) {
+                        setPost(response.data.data[0]);
+                    } else {
+                        setErrorMessage('커뮤니티 글이 아닙니다.');
+                    }
                 } else {
                     setErrorMessage('Invalid notice ID.');
                 }
