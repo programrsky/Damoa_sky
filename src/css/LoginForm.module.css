@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 24;
+    gap: 24px;
     padding: 32px;
     border-radius: 8px;
     background: rgb(25, 25, 25);
@@ -104,6 +104,7 @@
     border-width: 1px;
     border-color: #e4e7e9;
     padding: 0.7rem;
+    color: #0f0f0f;
 }
 
 .login__input__pw > div:first-child {
@@ -207,6 +208,22 @@ input[type='password'] {
     color: #fff;
     text-decoration: none;
     margin: 14px 0;
+}
+
+.register__button {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    margin: 14px 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.register__button:active {
+    border: none;
+    background-color: transparent;
 }
 
 /* Login Modal */
