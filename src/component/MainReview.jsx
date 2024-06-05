@@ -39,7 +39,6 @@ export default function Review() {
     const scrollToTop = () => {
         window.scrollTo({
             top: 0, // 최상단으로 스크롤
-            behavior: 'smooth', // 부드러운 스크롤 효과 적용
         });
     };
 
