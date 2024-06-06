@@ -18,7 +18,7 @@ const WritePage = () => {
         const userId = localStorage.getItem('user_id');
         if (!userId) {
             navigate('/');
-            alert('로그인이 필요합니다.');
+            scrollToTop();
         }
     }, []);
     useEffect(() => {
@@ -125,7 +125,7 @@ const WritePage = () => {
                     notice_date: noticeDate,
                     rating: 5, // Replace with actual rating logic
                 });
-
+                
                 if (response.status === 201) {
                     alert('등록이 완료되었습니다.');
                     scrollToTop();
@@ -135,6 +135,11 @@ const WritePage = () => {
                 }
             } catch (error) {
                 setErrorMessage('데이터베이스 연결이 실패하였습니다.');
+                const userId = localStorage.getItem('user_id');
+                if (!userId) {
+                    navigate('/');
+                    scrollToTop();
+                }
                 console.error('리뷰 등록 실패:', error);
             }
         }
