@@ -14,7 +14,13 @@ const WritePage = () => {
     const [errorMessage, setErrorMessage] = useState(''); // 오류 메시지 상태 추가
     const charLimit = 1000;
     const navigate = useNavigate();
-
+    useEffect(() => {
+        const userId = localStorage.getItem('user_id');
+        if (!userId) {
+            navigate('/');
+            alert('로그인이 필요합니다.');
+        }
+    }, []);
     useEffect(() => {
         localStorage.removeItem('content');
         localStorage.removeItem('title');
