@@ -14,7 +14,13 @@ const WritePage = () => {
     const [errorMessage, setErrorMessage] = useState(''); // 오류 메시지 상태 추가
     const charLimit = 1000;
     const navigate = useNavigate();
-
+    useEffect(() => {
+        const userId = localStorage.getItem('user_id');
+        if (!userId) {
+            navigate('/');
+            scrollToTop();
+        }
+    }, []);
     useEffect(() => {
         localStorage.removeItem('content');
         localStorage.removeItem('title');
@@ -119,7 +125,7 @@ const WritePage = () => {
                     notice_date: noticeDate,
                     rating: 5, // Replace with actual rating logic
                 });
-
+                
                 if (response.status === 201) {
                     alert('등록이 완료되었습니다.');
                     scrollToTop();
@@ -129,6 +135,11 @@ const WritePage = () => {
                 }
             } catch (error) {
                 setErrorMessage('데이터베이스 연결이 실패하였습니다.');
+                const userId = localStorage.getItem('user_id');
+                if (!userId) {
+                    navigate('/');
+                    scrollToTop();
+                }
                 console.error('리뷰 등록 실패:', error);
             }
         }
@@ -191,7 +202,7 @@ const WritePage = () => {
                         취소
                     </button>
                 </Link>
-                <button className={styles.submitButton} onClick={handleSubmit}>
+                <button className={styles.submitButton} onClick={handleSubmit} >
                     등록
                 </button>
             </div>

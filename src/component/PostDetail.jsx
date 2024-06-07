@@ -7,7 +7,7 @@ const PostDetail = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const noticeId = searchParams.get('notice_id');
-
+    
     const [post, setPost] = useState({});
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
@@ -71,7 +71,7 @@ const PostDetail = () => {
                 <>
                     <h1 className={styles.postTitle}>{post.notice_name}</h1>
                     <p className={styles.postMeta}>
-                        조회수: {post.notice_views / 2} | 작성일: {new Date(post.notice_date).toLocaleDateString()}
+                        조회수: {post.notice_views/2} | 작성일: {new Date(post.notice_date).toLocaleDateString()}
                     </p>
                     <div className={styles.postContent} dangerouslySetInnerHTML={{ __html: post.notice_detail }} />
                     <div className={styles.commentSection}>
@@ -104,10 +104,7 @@ const PostDetail = () => {
                                                     onChange={(e) => setNewReply(e.target.value)}
                                                     placeholder="답글을 입력하세요"
                                                 />
-                                                <button
-                                                    className={styles.button}
-                                                    onClick={() => handleAddReply(comment.id)}
-                                                >
+                                                <button className={styles.button} onClick={() => handleAddReply(comment.id)}>
                                                     답글 달기
                                                 </button>
                                             </div>
