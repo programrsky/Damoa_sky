@@ -1,6 +1,19 @@
+import React, { useState } from 'react';
 import style from '../css/Language.module.css';
 
 export default function Language() {
+    const [selectedLang, setSelectedLang] = useState(localStorage.getItem('lang') || '');
+
+    const handleLanguageChange = (lang) => {
+        setSelectedLang(lang);
+        localStorage.setItem('lang', lang);
+        printLocalStorage();  // Print local storage after updating it
+    };
+
+    const printLocalStorage = () => {
+        console.log('Current Local Storage:', JSON.stringify(localStorage, null, 2));
+    };
+
     return (
         <div className={style.language}>
             <div className={style.language__content}>
@@ -23,11 +36,36 @@ export default function Language() {
                 <p>언어</p>
             </div>
             <div className={style[`language__btn-group`]}>
-                <button>한국어</button>
-                <button>영어</button>
-                <button>중국어</button>
-                <button>일본어</button>
-                <button>기타</button>
+                <button
+                    className={selectedLang === '한국어' ? style.active : ''}
+                    onClick={() => handleLanguageChange('한국어')}
+                >
+                    한국어
+                </button>
+                <button
+                    className={selectedLang === '영어' ? style.active : ''}
+                    onClick={() => handleLanguageChange('영어')}
+                >
+                    영어
+                </button>
+                <button
+                    className={selectedLang === '중국어' ? style.active : ''}
+                    onClick={() => handleLanguageChange('중국어')}
+                >
+                    중국어
+                </button>
+                <button
+                    className={selectedLang === '일본어' ? style.active : ''}
+                    onClick={() => handleLanguageChange('일본어')}
+                >
+                    일본어
+                </button>
+                <button
+                    className={selectedLang === '기타' ? style.active : ''}
+                    onClick={() => handleLanguageChange('기타')}
+                >
+                    기타
+                </button>
             </div>
         </div>
     );
