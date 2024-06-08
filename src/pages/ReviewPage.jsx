@@ -1,13 +1,14 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import Sort from '../component/Sort';
-import Language from '../svg/Language';
 import Rating from '../component/Rating';
 import Genre from '../component/Genre';
 import app from '../css/App.module.css';
 import ReviewText from '../component/ReviewPageReviewText';
 import ReviewComponent from '../component/ReviewPageReview';
 import styles from '../css/Layout.module.css';
+import OTTReview from '../component/OTTReview';
+import ReviewPageGenre from '../component/ReviewPageGenre';
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -37,9 +38,9 @@ export default function Review() {
                     </div>
                     <div className={app.Rivewbg}>
                         <Sort />
-                        <Language />
+                        <ReviewPageGenre />
+                        <OTTReview />
                         <Rating />
-                        <Genre />
                     </div>
                 </div>
             ) : (

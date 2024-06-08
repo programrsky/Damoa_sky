@@ -125,7 +125,7 @@ const WritePage = () => {
                     notice_date: noticeDate,
                     rating: 5, // Replace with actual rating logic
                 });
-                
+
                 if (response.status === 201) {
                     alert('등록이 완료되었습니다.');
                     scrollToTop();
@@ -210,7 +210,7 @@ const WritePage = () => {
                         취소
                     </button>
                 </Link>
-                <button className={styles.submitButton} onClick={handleSubmit} >
+                <button className={styles.submitButton} onClick={handleSubmit}>
                     등록
                 </button>
             </div>

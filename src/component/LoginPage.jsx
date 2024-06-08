@@ -2,7 +2,7 @@ import Modal from 'react-modal';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 import MyPageForm from './ChangingInformation';
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from '../css/LoginForm.module.css';
 

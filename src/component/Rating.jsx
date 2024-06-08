@@ -39,18 +39,14 @@ export default function Rating() {
             <div className={style[`rating__starBtns-group`]}>
                 <button className={style.rating__starBtn} onClick={() => handleRatingChange(5)}>
                     <div className={style[`rating__starBtn__elements-group`]}>
-                        <div className={style.rating__starBtn__stars}>
-                            {renderStars(5, 0, 0)}
-                        </div>
+                        <div className={style.rating__starBtn__stars}>{renderStars(5, 0, 0)}</div>
                         <span className={style.rating__starBtn__text}>5</span>
                     </div>
                 </button>
 
                 <button className={style.rating__starBtn} onClick={() => handleRatingChange(4.5)}>
                     <div className={style[`rating__starBtn__elements-group`]}>
-                        <div className={style.rating__starBtn__stars}>
-                            {renderStars(4, 1, 0)}
-                        </div>
+                        <div className={style.rating__starBtn__stars}>{renderStars(4, 1, 0)}</div>
                         <span className={style.rating__starBtn__text}>4.5</span>
                     </div>
                 </button>
@@ -60,18 +56,14 @@ export default function Rating() {
             <div className={style[`rating__starBtns-group`]}>
                 <button className={style.rating__starBtn} onClick={() => handleRatingChange(4)}>
                     <div className={style[`rating__starBtn__elements-group`]}>
-                        <div className={style.rating__starBtn__stars}>
-                            {renderStars(4, 0, 1)}
-                        </div>
+                        <div className={style.rating__starBtn__stars}>{renderStars(4, 0, 1)}</div>
                         <span className={style.rating__starBtn__text}>4</span>
                     </div>
                 </button>
 
                 <button className={style.rating__starBtn} onClick={() => handleRatingChange(3.5)}>
                     <div className={style[`rating__starBtn__elements-group`]}>
-                        <div className={style.rating__starBtn__stars}>
-                            {renderStars(3, 1, 1)}
-                        </div>
+                        <div className={style.rating__starBtn__stars}>{renderStars(3, 1, 1)}</div>
                         <span className={style.rating__starBtn__text}>3.5</span>
                     </div>
                 </button>
@@ -81,18 +73,14 @@ export default function Rating() {
             <div className={style[`rating__starBtns-group`]}>
                 <button className={style.rating__starBtn} onClick={() => handleRatingChange(3)}>
                     <div className={style[`rating__starBtn__elements-group`]}>
-                        <div className={style.rating__starBtn__stars}>
-                            {renderStars(3, 0, 2)}
-                        </div>
+                        <div className={style.rating__starBtn__stars}>{renderStars(3, 0, 2)}</div>
                         <span className={style.rating__starBtn__text}>3</span>
                     </div>
                 </button>
 
                 <button className={style.rating__starBtn} onClick={() => handleRatingChange(2.5)}>
                     <div className={style[`rating__starBtn__elements-group`]}>
-                        <div className={style.rating__starBtn__stars}>
-                            {renderStars(2, 1, 2)}
-                        </div>
+                        <div className={style.rating__starBtn__stars}>{renderStars(2, 1, 2)}</div>
                         <span className={style.rating__starBtn__text}>2.5</span>
                     </div>
                 </button>
@@ -102,18 +90,14 @@ export default function Rating() {
             <div className={style[`rating__starBtns-group`]}>
                 <button className={style.rating__starBtn} onClick={() => handleRatingChange(2)}>
                     <div className={style[`rating__starBtn__elements-group`]}>
-                        <div className={style.rating__starBtn__stars}>
-                            {renderStars(2, 0, 3)}
-                        </div>
+                        <div className={style.rating__starBtn__stars}>{renderStars(2, 0, 3)}</div>
                         <span className={style.rating__starBtn__text}>2</span>
                     </div>
                 </button>
 
                 <button className={style.rating__starBtn} onClick={() => handleRatingChange(1.5)}>
                     <div className={style[`rating__starBtn__elements-group`]}>
-                        <div className={style.rating__starBtn__stars}>
-                            {renderStars(1, 1, 3)}
-                        </div>
+                        <div className={style.rating__starBtn__stars}>{renderStars(1, 1, 3)}</div>
                         <span className={style.rating__starBtn__text}>1.5</span>
                     </div>
                 </button>
@@ -123,18 +107,14 @@ export default function Rating() {
             <div className={style[`rating__starBtns-group`]}>
                 <button className={style.rating__starBtn} onClick={() => handleRatingChange(1)}>
                     <div className={style[`rating__starBtn__elements-group`]}>
-                        <div className={style.rating__starBtn__stars}>
-                            {renderStars(1, 0, 4)}
-                        </div>
+                        <div className={style.rating__starBtn__stars}>{renderStars(1, 0, 4)}</div>
                         <span className={style.rating__starBtn__text}>1</span>
                     </div>
                 </button>
 
                 <button className={style.rating__starBtn} onClick={() => handleRatingChange(0.5)}>
                     <div className={style[`rating__starBtn__elements-group`]}>
-                        <div className={style.rating__starBtn__stars}>
-                            {renderStars(0, 1, 4)}
-                        </div>
+                        <div className={style.rating__starBtn__stars}>{renderStars(0, 1, 4)}</div>
                         <span className={style.rating__starBtn__text}>0.5</span>
                     </div>
                 </button>

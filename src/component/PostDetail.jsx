@@ -7,7 +7,7 @@ const PostDetail = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const noticeId = searchParams.get('notice_id');
-    
+
     const [post, setPost] = useState({});
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
@@ -104,7 +104,10 @@ const PostDetail = () => {
                                                     onChange={(e) => setNewReply(e.target.value)}
                                                     placeholder="답글을 입력하세요"
                                                 />
-                                                <button className={styles.button} onClick={() => handleAddReply(comment.id)}>
+                                                <button
+                                                    className={styles.button}
+                                                    onClick={() => handleAddReply(comment.id)}
+                                                >
                                                     답글 달기
                                                 </button>
                                             </div>

@@ -71,7 +71,7 @@ const Board = () => {
     return (
         <div className={styles.boardContainer}>
             <div className={styles.headerContainer}>
-                <div onClick={handleWriteClick} style={{ cursor: 'pointer' }} className={Reviewstyles.button} >
+                <div onClick={handleWriteClick} style={{ cursor: 'pointer' }} className={Reviewstyles.button}>
                     <AddIcon />
                     <p className={Reviewstyles.buttonText}>글 쓰러 가기</p>
                 </div>
@@ -86,7 +86,11 @@ const Board = () => {
             {data.map((item) => (
                 <div key={item.id} className={styles.boardRow}>
                     <div className={styles.rowItem}>{counter++}</div>
-                    <Link to={`/community/post?notice_id=${item.notice_id}`} onClick={() => handleNoticeClick(item.notice_id)} className={styles.rowItem}>
+                    <Link
+                        to={`/community/post?notice_id=${item.notice_id}`}
+                        onClick={() => handleNoticeClick(item.notice_id)}
+                        className={styles.rowItem}
+                    >
                         {item.notice_name}
                     </Link>
                     <div className={styles.rowItem}>{item.user_name}</div>
