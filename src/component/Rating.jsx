@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import style from '../css/MainRating.module.css';
 import StarContent from '../svg/StarContent';
 import StarRating from '../svg/StarRating';
@@ -8,10 +8,13 @@ import EmptyStarRating from '../svg/EmptyStarRating';
 export default function Rating() {
     const [selectedRating, setSelectedRating] = useState(localStorage.getItem('rating') || '');
 
+    useEffect(() => {
+        printLocalStorage();
+    }, [selectedRating]);
+
     const handleRatingChange = (rating) => {
         setSelectedRating(rating);
         localStorage.setItem('rating', rating);
-        printLocalStorage();  // Print local storage after updating it
     };
 
     const printLocalStorage = () => {
@@ -26,40 +29,116 @@ export default function Rating() {
         return stars;
     };
 
-    const ratings = [
-        { value: 5, fullStars: 5, halfStars: 0, emptyStars: 0 },
-        { value: 4.5, fullStars: 4, halfStars: 1, emptyStars: 0 },
-        { value: 4, fullStars: 4, halfStars: 0, emptyStars: 1 },
-        { value: 3.5, fullStars: 3, halfStars: 1, emptyStars: 1 },
-        { value: 3, fullStars: 3, halfStars: 0, emptyStars: 2 },
-        { value: 2.5, fullStars: 2, halfStars: 1, emptyStars: 2 },
-        { value: 2, fullStars: 2, halfStars: 0, emptyStars: 3 },
-        { value: 1.5, fullStars: 1, halfStars: 1, emptyStars: 3 },
-        { value: 1, fullStars: 1, halfStars: 0, emptyStars: 4 },
-        { value: 0.5, fullStars: 0, halfStars: 1, emptyStars: 4 },
-    ];
-
     return (
         <div className={style.rating}>
             <div className={style.rating__content}>
                 <StarContent />
                 <p>별점</p>
             </div>
-            {ratings.map((rating, index) => (
-                <div className={style[`rating__starBtns-group`]} key={index}>
-                    <button
-                        className={`${style.rating__starBtn} ${selectedRating == rating.value ? style.active : ''}`}
-                        onClick={() => handleRatingChange(rating.value)}
-                    >
-                        <div className={style[`rating__starBtn__elements-group`]}>
-                            <div className={style.rating__starBtn__stars}>
-                                {renderStars(rating.fullStars, rating.halfStars, rating.emptyStars)}
-                            </div>
-                            <span className={style.rating__starBtn__text}>{rating.value}</span>
+            {/* 별점 5점, 별점 4.5점 */}
+            <div className={style[`rating__starBtns-group`]}>
+                <button className={style.rating__starBtn} onClick={() => handleRatingChange(5)}>
+                    <div className={style[`rating__starBtn__elements-group`]}>
+                        <div className={style.rating__starBtn__stars}>
+                            {renderStars(5, 0, 0)}
                         </div>
-                    </button>
-                </div>
-            ))}
+                        <span className={style.rating__starBtn__text}>5</span>
+                    </div>
+                </button>
+
+                <button className={style.rating__starBtn} onClick={() => handleRatingChange(4.5)}>
+                    <div className={style[`rating__starBtn__elements-group`]}>
+                        <div className={style.rating__starBtn__stars}>
+                            {renderStars(4, 1, 0)}
+                        </div>
+                        <span className={style.rating__starBtn__text}>4.5</span>
+                    </div>
+                </button>
+            </div>
+
+            {/* 별점 4점, 별점 3.5점 */}
+            <div className={style[`rating__starBtns-group`]}>
+                <button className={style.rating__starBtn} onClick={() => handleRatingChange(4)}>
+                    <div className={style[`rating__starBtn__elements-group`]}>
+                        <div className={style.rating__starBtn__stars}>
+                            {renderStars(4, 0, 1)}
+                        </div>
+                        <span className={style.rating__starBtn__text}>4</span>
+                    </div>
+                </button>
+
+                <button className={style.rating__starBtn} onClick={() => handleRatingChange(3.5)}>
+                    <div className={style[`rating__starBtn__elements-group`]}>
+                        <div className={style.rating__starBtn__stars}>
+                            {renderStars(3, 1, 1)}
+                        </div>
+                        <span className={style.rating__starBtn__text}>3.5</span>
+                    </div>
+                </button>
+            </div>
+
+            {/* 별점 3점, 별점 2.5점 */}
+            <div className={style[`rating__starBtns-group`]}>
+                <button className={style.rating__starBtn} onClick={() => handleRatingChange(3)}>
+                    <div className={style[`rating__starBtn__elements-group`]}>
+                        <div className={style.rating__starBtn__stars}>
+                            {renderStars(3, 0, 2)}
+                        </div>
+                        <span className={style.rating__starBtn__text}>3</span>
+                    </div>
+                </button>
+
+                <button className={style.rating__starBtn} onClick={() => handleRatingChange(2.5)}>
+                    <div className={style[`rating__starBtn__elements-group`]}>
+                        <div className={style.rating__starBtn__stars}>
+                            {renderStars(2, 1, 2)}
+                        </div>
+                        <span className={style.rating__starBtn__text}>2.5</span>
+                    </div>
+                </button>
+            </div>
+
+            {/* 별점 2점, 별점 1.5점 */}
+            <div className={style[`rating__starBtns-group`]}>
+                <button className={style.rating__starBtn} onClick={() => handleRatingChange(2)}>
+                    <div className={style[`rating__starBtn__elements-group`]}>
+                        <div className={style.rating__starBtn__stars}>
+                            {renderStars(2, 0, 3)}
+                        </div>
+                        <span className={style.rating__starBtn__text}>2</span>
+                    </div>
+                </button>
+
+                <button className={style.rating__starBtn} onClick={() => handleRatingChange(1.5)}>
+                    <div className={style[`rating__starBtn__elements-group`]}>
+                        <div className={style.rating__starBtn__stars}>
+                            {renderStars(1, 1, 3)}
+                        </div>
+                        <span className={style.rating__starBtn__text}>1.5</span>
+                    </div>
+                </button>
+            </div>
+
+            {/* 별점 1점, 별점 0.5점 */}
+            <div className={style[`rating__starBtns-group`]}>
+                <button className={style.rating__starBtn} onClick={() => handleRatingChange(1)}>
+                    <div className={style[`rating__starBtn__elements-group`]}>
+                        <div className={style.rating__starBtn__stars}>
+                            {renderStars(1, 0, 4)}
+                        </div>
+                        <span className={style.rating__starBtn__text}>1</span>
+                    </div>
+                </button>
+
+                <button className={style.rating__starBtn} onClick={() => handleRatingChange(0.5)}>
+                    <div className={style[`rating__starBtn__elements-group`]}>
+                        <div className={style.rating__starBtn__stars}>
+                            {renderStars(0, 1, 4)}
+                        </div>
+                        <span className={style.rating__starBtn__text}>0.5</span>
+                    </div>
+                </button>
+            </div>
         </div>
     );
 }
