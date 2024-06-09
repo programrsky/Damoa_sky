@@ -7,7 +7,6 @@ import EmptyStarRating from '../svg/EmptyStarRating';
 
 export default function Rating() {
     const [selectedRating, setSelectedRating] = useState(localStorage.getItem('rating') || '');
-
     useEffect(() => {
         printLocalStorage();
     }, [selectedRating]);
@@ -15,6 +14,7 @@ export default function Rating() {
     const handleRatingChange = (rating) => {
         setSelectedRating(rating);
         localStorage.setItem('rating', rating);
+        window.location.reload();
     };
 
     const printLocalStorage = () => {
