@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from '../css/Language.module.css';
 import GenreIcon from '../svg/GenreIcon';
 
 export default function ReviewPageGenre() {
+    const selectdrating = localStorage.getItem('selectedGenre');
+    const [selectedGenre, setSelectedGenre] = useState(selectdrating);
+
     const handleGenreClick = (genre) => {
         localStorage.setItem('selectedGenre', genre);
         if (localStorage.getItem('selectedGenre') === "전체") {
             localStorage.removeItem('selectedGenre');
             localStorage.removeItem('rating');
+            localStorage.removeItem('selectedButton');
         }
+        localStorage.setItem('selectedGenre', genre);
+        setSelectedGenre(genre);
         window.location.reload();
     };
 
@@ -19,16 +25,17 @@ export default function ReviewPageGenre() {
                 <p>장르</p>
             </div>
             <div className={style[`language__btn-group`]}>
-                <button onClick={() => handleGenreClick('전체')}>전체</button>
-                <button onClick={() => handleGenreClick('범죄')}>범죄</button>
-                <button onClick={() => handleGenreClick('코미디')}>코미디</button>
-                <button onClick={() => handleGenreClick('드라마')}>드라마</button>
-                <button onClick={() => handleGenreClick('모험')}>모험</button>
-                <button onClick={() => handleGenreClick('키즈')}>키즈</button>
-                <button onClick={() => handleGenreClick('액션')}>액션</button>
-                <button onClick={() => handleGenreClick('판타지')}>판타지</button>
-                <button onClick={() => handleGenreClick('애니메이션')}>애니메이션</button>
-                <button onClick={() => handleGenreClick('스릴러')}>스릴러</button>
+                {['전체', '범죄', '코미디', '드라마', '모험', '키즈', '액션', '판타지', '애니메이션', '스릴러'].map(
+                    (genre) => (
+                        <button
+                            key={genre}
+                            className={selectedGenre === genre ? style.active : ''}
+                            onClick={() => handleGenreClick(genre)}
+                        >
+                            {genre}
+                        </button>
+                    )
+                )}
             </div>
         </div>
     );
