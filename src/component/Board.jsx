@@ -83,9 +83,9 @@ const Board = () => {
                 <div className={styles.headerItem}>작성일</div>
                 <div className={styles.headerItem}>조회</div>
             </div>
-            {data.map((item) => (
+            {data.map((item, index) => (
                 <div key={item.id} className={styles.boardRow}>
-                    <div className={styles.rowItem}>{counter++}</div>
+                    <div className={styles.rowItem}>{data.length - index}</div>
                     <Link
                         to={`/community/post?notice_id=${item.notice_id}`}
                         onClick={() => handleNoticeClick(item.notice_id)}
