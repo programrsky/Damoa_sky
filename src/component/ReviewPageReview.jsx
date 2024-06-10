@@ -39,11 +39,11 @@ const formatDate = (dateString) => {
 export default function ReviewComponent() {
     const [data, setData] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const [userNames, setUserNames] = useState({});
     const user_id = localStorage.getItem('user_id');
     const selectedGenre = localStorage.getItem('selectedGenre');
     const selectdrating = localStorage.getItem('rating');
     const selectedSortOption = localStorage.getItem('selectedSortOption');
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -60,6 +60,21 @@ export default function ReviewComponent() {
 
                 if (response.data.valid) {
                     setData(response.data.data);
+
+                    // Fetch user names
+                    const userNames = {};
+                    const nameRequests = response.data.data.map(async (review) => {
+                        try {
+                            const nameResponse = await axios.post(`${baseURL}/api/select_name`, {
+                                user_name: review.user_name,
+                            });
+                            userNames[review.user_name] = nameResponse.data.data[0].user_id;
+                        } catch (error) {
+                            console.error('Failed to fetch user name:', error);
+                        }
+                    });
+                    await Promise.all(nameRequests);
+                    setUserNames(userNames);
                 } else {
                     setErrorMessage('리스트를 불러오는데 실패하였습니다.');
                 }
@@ -69,7 +84,32 @@ export default function ReviewComponent() {
         };
 
         fetchData();
-    }, []);
+    }, [selectedSortOption]);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             let baseURL = '';
+    //             if (process.env.NODE_ENV === 'development') {
+    //                 baseURL = 'http://121.139.20.242:5100';
+    //             }
+
+    //             const response = await axios.post(`${baseURL}/api/review_selectlist`, {
+    //                 notice_auth: 2,
+    //                 selectedSortOption: selectedSortOption,
+    //             });
+
+    //             if (response.data.valid) {
+    //                 setData(response.data.data);
+    //             } else {
+    //                 setErrorMessage('리스트를 불러오는데 실패하였습니다.');
+    //             }
+    //         } catch (error) {
+    //             setErrorMessage('데이터베이스 연결이 실패하였습니다.');
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, []);
 
     const handleDelete = async (reviewId) => {
         try {
@@ -117,7 +157,7 @@ export default function ReviewComponent() {
                 .filter(review => selectdrating === "1" ? review.rating === 1 : true)
                 .filter(review => selectdrating === "0.5" ? review.rating === 0.5 : true)
 
-                .map((review, index) => (
+                .map((review, index, user_info) => (
                     <div className={styles.block} key={index}>
                         <div className={styles.genreContainer}>
                             <p className={styles.genre}>[{review.notice_genre}]</p> 
@@ -140,7 +180,7 @@ export default function ReviewComponent() {
                         </div>
                         <div className={styles.contentBlock}>
                             <p className={styles.contentText}>{formatDate(review.notice_date)}</p> 
-                            <p className={styles.contentText}>{review.user_name} 님이 남기신 리뷰입니다.</p>
+                            <p className={styles.contentText}>{userNames[review.user_name]} 님이 남기신 리뷰입니다.</p>
                             <p className={styles.boldText}>{review.notice_detail}</p>
                         </div>
                     </div>
