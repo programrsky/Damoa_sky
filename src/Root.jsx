@@ -1,14 +1,12 @@
-import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import styled, { createGlobalStyle } from 'styled-components';
+
 import { Helmet } from 'react-helmet';
-
-import { createGlobalStyle } from 'styled-components';
-import styled from 'styled-components';
-import Footer from './component/Footer';
 import Navbar from './component/Navbar';
+import Footer from './component/Footer';
 
-// 전역 스타일 정의
+// 전역 스타일로 CSS 정의
 const GlobalStyles = createGlobalStyle`
 .fade-enter {
   opacity: 0;
@@ -23,11 +21,6 @@ const GlobalStyles = createGlobalStyle`
 .fade-exit-active {
   opacity: 0;
   transition: opacity 250ms ease-out;
-}
-.root {
-    margin-top: 150px;
-    display: flex;
-    flex-direction: column;
 }
 `;
 
@@ -46,7 +39,7 @@ function Root() {
             </Helmet>
             <GlobalStyles />
             <Navbar />
-            <TransitionGroup className="root">
+            <TransitionGroup>
                 <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
                     <AnimationContainer>
                         <Outlet />
