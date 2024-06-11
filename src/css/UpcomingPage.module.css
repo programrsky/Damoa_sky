@@ -1,128 +1,152 @@
 .Upcoming__title {
-    flex-grow: 1;
-    font-size: 32px;
-    font-weight: 700;
-    text-align: left;
-    color: #fff;
-    margin-left: 60px;
+  flex-grow: 1;
+  font-size: 32px;
+  font-weight: 700;
+  text-align: left;
+  color: #fff;
+  margin-left: 60px;
 }
 
 .Upcoming__contentContainer {
-    display: flex;
-    margin: 0 60px;
-    justify-content: center;
+  display: flex;
+  margin: 0 60px;
+  justify-content: center;
 }
 
 .Upcoming__contentWrap {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    /* width: 100%; */
-    justify-content: space-between;
-    margin: 20px 4rem 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 4rem 0px;
 }
 
 .Upcoming__content {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 40px;
-    border-radius: 10px;
-    background: #1a1a1a;
-    border: 1px solid #1f1f1f;
-    text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  background: #1a1a1a;
+  border: 1px solid #1f1f1f;
+  text-decoration: none;
+  height: auto;
+  min-height: 350px; /* 최소 높이를 설정하여 텍스트 위치를 고정 */
+  justify-content: flex-start; /* 요소를 위쪽으로 정렬 */
 }
 
-.Upcoming__content > div > h2 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    text-align: left;
-    color: #fff;
-    margin-top: 1rem;
+.Upcoming__content img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 10px; /* 이미지와 텍스트 사이의 간격을 설정 */
 }
 
-.Upcoming__content > div > p {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #fff;
-    margin-top: 0.2rem;
+.Upcoming__content h2,
+.Upcoming__content p {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  margin: 0; /* 여백을 초기화하여 위치를 고정 */
+  padding: 5px 0; /* 텍스트 간의 간격을 설정 */
+}
+
+.Upcoming__content h2 {
+  margin-top: 10px;
+  min-height: 3em; /* 제목의 최소 높이를 설정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Upcoming__content p {
+  min-height: 2em; /* 날짜의 최소 높이를 설정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #1a1a1a;
-    padding: 20px;
-    border-radius: 10px;
-    outline: none;
-    width: 90%;
-    max-width: 1200px;
-    z-index: 1000;
-    color: #fff;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  outline: none;
+  width: 90%;
+  max-width: 1200px;
+  z-index: 1000;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .Overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.75);
-    z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 999;
 }
 
 .ModalContent {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
 }
 
 .MovieImage img {
-    width: 250px;
-    height: 375px;
-    object-fit: cover;
-    border-radius: 10px;
+  width: 250px;
+  height: 375px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 .MovieDetails {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
 }
 
 .ModalContent__contentGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ModalContent__contentGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .ModalContent iframe {
-    width: 800px;
-    height: 450px;
-    border-radius: 14px;
+  width: 800px;
+  height: 450px;
+  border-radius: 14px;
 }
 
 .ModalContent p {
-    color: #fff;
-    font-size: 1.2rem;
-    text-align: left;
+  color: #fff;
+  font-size: 1.2rem;
+  text-align: left;
 }
 
 .ModalCloseButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.5rem;
-    cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
