@@ -12,12 +12,12 @@ export default function ReviewPageGenre() {
             localStorage.removeItem('selectedGenre');
             localStorage.removeItem('rating');
             localStorage.removeItem('selectedButton');
+            localStorage.setItem('selectedott', 'damoa');
         }
         localStorage.setItem('selectedGenre', genre);
         setSelectedGenre(genre);
         window.location.reload();
     };
-
     return (
         <div className={style.language}>
             <div className={style.language__content}>

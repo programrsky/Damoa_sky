@@ -52,39 +52,56 @@ export default function ReviewComponent() {
                 if (process.env.NODE_ENV === 'development') {
                     baseURL = 'http://121.139.20.242:5100';
                 }
-
-                const response = await axios.post(`${baseURL}/api/review_selectlist`, {
+    
+                // Retrieve the selectedott value from localStorage
+                const selectedott = localStorage.getItem('selectedott');
+    
+                // Set the endpoint URL based on the selectedott value
+                let endpoint = '';
+                if (selectedott === 'damoa') {
+                    endpoint = '/api/review_selectlist';
+                }else{
+                    endpoint = '/api/review_selectlist_ott';
+                }
+    
+                const response = await axios.post(`${baseURL}${endpoint}`, {
                     notice_auth: 2,
                     selectedSortOption: selectedSortOption,
+                    user_id: selectedott,
                 });
-
-                if (response.data.valid) {
+                if(selectedott === 'damoa'){
+                    if (response.data.valid) {
+                        setData(response.data.data);
+        
+                        // Fetch user names
+                        const userNames = {};
+                        const nameRequests = response.data.data.map(async (review) => {
+                            try {
+                                const nameResponse = await axios.post(`${baseURL}/api/select_name`, {
+                                    user_name: review.user_name,
+                                });
+                                userNames[review.user_name] = nameResponse.data.data[0].user_id;
+                            } catch (error) {
+                                console.error('Failed to fetch user name:', error);
+                            }
+                        });
+                        await Promise.all(nameRequests);
+                        setUserNames(userNames);
+                    } else {
+                        setErrorMessage('리스트를 불러오는데 실패하였습니다.');
+                    }
+                }else{
                     setData(response.data.data);
-
-                    // Fetch user names
-                    const userNames = {};
-                    const nameRequests = response.data.data.map(async (review) => {
-                        try {
-                            const nameResponse = await axios.post(`${baseURL}/api/select_name`, {
-                                user_name: review.user_name,
-                            });
-                            userNames[review.user_name] = nameResponse.data.data[0].user_id;
-                        } catch (error) {
-                            console.error('Failed to fetch user name:', error);
-                        }
-                    });
-                    await Promise.all(nameRequests);
-                    setUserNames(userNames);
-                } else {
-                    setErrorMessage('리스트를 불러오는데 실패하였습니다.');
                 }
+                
             } catch (error) {
                 setErrorMessage('데이터베이스 연결이 실패하였습니다.');
             }
         };
-
+    
         fetchData();
     }, [selectedSortOption]);
+    
     // useEffect(() => {
     //     const fetchData = async () => {
     //         try {
@@ -136,7 +153,8 @@ export default function ReviewComponent() {
 
     return (
         <div className={styles.container}>
-            {data
+            {data && data.length > 0 ? (
+                data
                 .filter(review => selectedGenre === "범죄" ? review.notice_genre === "범죄" : true) 
                 .filter(review => selectedGenre === "코미디" ? review.notice_genre === "코미디" : true) 
                 .filter(review => selectedGenre === "드라마" ? review.notice_genre === "드라마" : true) 
@@ -157,7 +175,7 @@ export default function ReviewComponent() {
                 .filter(review => selectdrating === "1" ? review.rating === 1 : true)
                 .filter(review => selectdrating === "0.5" ? review.rating === 0.5 : true)
 
-                .map((review, index, user_info) => (
+                .map((review, index) => (
                     <div className={styles.block} key={index}>
                         <div className={styles.genreContainer}>
                             <p className={styles.genre}>[{review.notice_genre}]</p> 
@@ -180,11 +198,14 @@ export default function ReviewComponent() {
                         </div>
                         <div className={styles.contentBlock}>
                             <p className={styles.contentText}>{formatDate(review.notice_date)}</p> 
-                            <p className={styles.contentText}>{userNames[review.user_name]} 님이 남기신 리뷰입니다.</p>
+                            <p className={styles.contentText}>{localStorage.getItem('selectedott') === 'damoa' ? userNames[review.user_name] : review.user_id} 님이 남기신 리뷰입니다.</p>
                             <p className={styles.boldText}>{review.notice_detail}</p>
                         </div>
-                    </div>
-                ))}
+                        </div>
+                ))
+            ) : (
+                <div className={styles.loading}>Loading...</div>
+            )}
             {errorMessage && <div className={styles.error}>{errorMessage}</div>}
         </div>
     );
