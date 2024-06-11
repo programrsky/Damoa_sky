@@ -9,9 +9,11 @@ import style from "../css/LoginForm.module.css";
 export default function LoginPage() {
   const [loginPageOpen, setLoginPageOpen] = useState(false);
   const [signUpPageOpen, setSignUpPageOpen] = useState(false);
-  const [myPageOpen, setMyPageOpen] = useState(false); // 마이 페이지 모달 상태 추가
+  const [myPageOpen, setMyPageOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [confirmLogoutOpen, setConfirmLogoutOpen] = useState(false); // 추가: 로그아웃 확인 모달 상태
   const navigate = useNavigate();
+
   useEffect(() => {
     const userId = localStorage.getItem("user_id");
     if (userId) {
@@ -23,39 +25,45 @@ export default function LoginPage() {
     setLoginPageOpen(true);
     setSignUpPageOpen(false);
     setMyPageOpen(false);
-    document.body.classList.add("modal-open"); // 모달이 열릴 때 클래스 추가
+    document.body.classList.add("modal-open");
   };
 
   const openSignUpModal = () => {
     setLoginPageOpen(false);
     setSignUpPageOpen(true);
     setMyPageOpen(false);
-    document.body.classList.add("modal-open"); // 모달이 열릴 때 클래스 추가
+    document.body.classList.add("modal-open");
   };
 
   const openMyPageModal = () => {
     setLoginPageOpen(false);
     setSignUpPageOpen(false);
     setMyPageOpen(true);
-    document.body.classList.add("modal-open"); // 모달이 열릴 때 클래스 추가
+    document.body.classList.add("modal-open");
+  };
+
+  const openConfirmLogoutModal = () => {
+    setConfirmLogoutOpen(true); // 추가: 로그아웃 확인 모달 열기
   };
 
   const closeModal = () => {
     setLoginPageOpen(false);
     setSignUpPageOpen(false);
     setMyPageOpen(false);
-    document.body.classList.remove("modal-open"); // 모달이 닫힐 때 클래스 제거
+    setConfirmLogoutOpen(false); // 추가: 모달 닫기
+    document.body.classList.remove("modal-open");
   };
 
   const onLogout = () => {
     localStorage.removeItem("user_id");
     setIsLoggedIn(false);
     navigate("/");
+    closeModal(); // 추가: 로그아웃 후 모달 닫기
   };
 
   useEffect(() => {
     return () => {
-      document.body.classList.remove("modal-open"); // 컴포넌트 언마운트 시 클래스 제거
+      document.body.classList.remove("modal-open");
     };
   }, []);
 
@@ -87,7 +95,7 @@ export default function LoginPage() {
           >
             정보 수정
           </button>
-          <button type="button" onClick={onLogout} className={style.button}>
+          <button type="button" onClick={openConfirmLogoutModal} className={style.button}> {/* 변경: 로그아웃 클릭 시 확인 모달 열기 */}
             로그아웃
           </button>
         </div>
@@ -116,9 +124,9 @@ export default function LoginPage() {
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
-            maxHeight: "90vh", // 최대 높이 설정
-            overflowY: "auto", // 내용이 넘칠 경우 스크롤
-            zIndex: 1500, // 모달 내용의 z-index 설정
+            maxHeight: "90vh",
+            overflowY: "auto",
+            zIndex: 1500,
           },
         }}
       >
@@ -137,13 +145,36 @@ export default function LoginPage() {
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
-            maxHeight: "90vh", // 최대 높이 설정
-            overflowY: "auto", // 내용이 넘칠 경우 스크롤
-            zIndex: 1500, // 모달 내용의 z-index 설정
+            maxHeight: "90vh",
+            overflowY: "auto",
+            zIndex: 1500,
           },
         }}
       >
         <MyPageForm />
+      </Modal>
+      <Modal
+        isOpen={confirmLogoutOpen} // 변경: 로그아웃 확인 모달 열림 여부
+        onRequestClose={closeModal}
+        className={style.confirmLogout} // 스타일링을 위한 클래스
+        style={{
+          overlay: { backgroundColor: "rgba(33, 33, 33, 0.75)", zIndex: 1501 }, // 다른 모달보다 한 단계 위
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 1501,
+          },
+        }}
+      >
+        <div>
+          <p>로그아웃 하시겠습니까?</p>
+          <button onClick={onLogout}>로그아웃</button>
+          <button onClick={closeModal}>취소</button>
+        </div>
       </Modal>
     </>
   );
