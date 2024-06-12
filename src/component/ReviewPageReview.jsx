@@ -101,32 +101,6 @@ export default function ReviewComponent() {
     
         fetchData();
     }, [selectedSortOption]);
-    
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             let baseURL = '';
-    //             if (process.env.NODE_ENV === 'development') {
-    //                 baseURL = 'http://121.139.20.242:5100';
-    //             }
-
-    //             const response = await axios.post(`${baseURL}/api/review_selectlist`, {
-    //                 notice_auth: 2,
-    //                 selectedSortOption: selectedSortOption,
-    //             });
-
-    //             if (response.data.valid) {
-    //                 setData(response.data.data);
-    //             } else {
-    //                 setErrorMessage('리스트를 불러오는데 실패하였습니다.');
-    //             }
-    //         } catch (error) {
-    //             setErrorMessage('데이터베이스 연결이 실패하였습니다.');
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
 
     const handleDelete = async (reviewId) => {
         try {
@@ -149,8 +123,31 @@ export default function ReviewComponent() {
         } catch (error) {
             setErrorMessage('데이터베이스 연결에 실패했습니다.');
         }
-    };
-
+        };const selectedOtt = localStorage.getItem('selectedott');
+        let transformedUserId;
+        
+        switch (selectedOtt) {
+            case 'netflix':
+                transformedUserId = 'Netflix';
+                break;
+            case 'tving':
+                transformedUserId = 'Tving';
+                break;
+            case 'watcha':
+                transformedUserId = 'Watcha';
+                break;
+            case 'disneyplus':
+                transformedUserId = 'DisneyPlus';
+                break;
+            case 'wavve':
+                transformedUserId = 'Wavve';
+                break;
+            case 'coupangplay':
+                transformedUserId = 'CoupangPlay';
+                break;
+            default:
+                transformedUserId = selectedOtt;
+        }
     return (
         <div className={styles.container}>
             {data && data.length > 0 ? (
@@ -198,7 +195,11 @@ export default function ReviewComponent() {
                         </div>
                         <div className={styles.contentBlock}>
                             <p className={styles.contentText}>{formatDate(review.notice_date)}</p> 
-                            <p className={styles.contentText}>{localStorage.getItem('selectedott') === 'damoa' ? userNames[review.user_name] : review.user_id} 님이 남기신 리뷰입니다.</p>
+                            <p className={styles.contentText}>
+                            {localStorage.getItem('selectedott') === 'damoa' 
+                                ? `${userNames[review.user_name]} 님이 남기신 리뷰입니다.` 
+                                : `${transformedUserId} 에서 가져온 리뷰입니다.`}
+                            </p>
                             <p className={styles.boldText}>{review.notice_detail}</p>
                         </div>
                         </div>
