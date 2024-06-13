@@ -161,10 +161,8 @@ const WritingPageReview = () => {
 
         try {
             // Define the base URL
-            let baseURL = '';
-            if (process.env.NODE_ENV === 'development') {
-                baseURL = 'http://121.139.20.242:5100';
-            }
+            const baseURL = 'http://121.139.20.242:5100';
+
             // Set the current date as the review_date
             const currentDate = new Date();
             const year = currentDate.getFullYear();
@@ -250,8 +248,8 @@ const WritingPageReview = () => {
                     <div className={styles.error}>{error.genre || error.rating || error.title}</div>
                 )}
                 <div className={styles.warningMessage}>
-                비방, 욕설, 비하하는 글을 작성하지 마세요. 타인을 조롱하거나 비난하는
-                내용은 금지됩니다. 허위 사실 유포는 엄격히 금지됩니다.
+                    비방, 욕설, 비하하는 글을 작성하지 마세요. 타인을 조롱하거나 비난하는 내용은 금지됩니다. 허위 사실
+                    유포는 엄격히 금지됩니다.
                 </div>
             </div>
             <div className={styles.editorContainer}>

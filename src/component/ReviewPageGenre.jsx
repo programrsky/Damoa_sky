@@ -8,16 +8,16 @@ export default function ReviewPageGenre() {
 
     const handleGenreClick = (genre) => {
         localStorage.setItem('selectedGenre', genre);
-        if (localStorage.getItem('selectedGenre') === "전체") {
+        if (localStorage.getItem('selectedGenre') === '전체') {
             localStorage.removeItem('selectedGenre');
             localStorage.removeItem('rating');
             localStorage.removeItem('selectedButton');
-            localStorage.setItem('selectedott', 'damoa');
         }
         localStorage.setItem('selectedGenre', genre);
         setSelectedGenre(genre);
         window.location.reload();
     };
+
     return (
         <div className={style.language}>
             <div className={style.language__content}>

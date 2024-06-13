@@ -1,6 +1,6 @@
-import { createGlobalStyle } from "styled-components";
-import styles from "../css/Layout.module.css";
-import NoticeBox from "../component/NoticeBox";
+import { createGlobalStyle } from 'styled-components';
+import styles from '../css/Layout.module.css';
+import NoticeBox from '../component/NoticeBox';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -15,12 +15,12 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default function Notice() {
-  return (
-    <>
-      <GlobalStyle />
-      <div className={styles.MainPageverticalContainer}>
-        <NoticeBox showAll={true} truncate={false} fullWidth={true} />
-      </div>
-    </>
-  );
+    return (
+        <>
+            <GlobalStyle />
+            <div className={styles.MainPageverticalContainer}>
+                <NoticeBox showAll={true} truncate={false} fullWidth={true} />
+            </div>
+        </>
+    );
 }
