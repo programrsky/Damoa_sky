@@ -101,8 +101,6 @@ const PostDetail = () => {
           setCommentReplies(commentReplies);
         } else {
           setComments([]);
-          // Optionally set an error message
-          // setErrorMessage("No comments found.");
         }
       } catch (error) {
         setErrorMessage("Failed to fetch data from the server.");
@@ -143,6 +141,18 @@ const PostDetail = () => {
       const currentDate = new Date(); // Get the current date and time
       const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")} ${String(currentDate.getHours()).padStart(2, "0")}:${String(currentDate.getMinutes()).padStart(2, "0")}:${String(currentDate.getSeconds()).padStart(2, "0")}`;
       
+      if (!user_id) {
+        // User is not logged in, show warning and navigate away
+        alert("로그인 후 사용해주세요.");
+        navigate('/');
+        return; // Stop further execution
+      }
+      if (!newComment) {
+        // User is not logged in, show warning and navigate away
+        alert("내용을 입력해주세요.");
+        return; // Stop further execution
+      }
+
       const response = await axios.post(`${baseURL}/api/comment_insert`, {
         notice_id: noticeId,
         comment_detail: newComment,
@@ -179,6 +189,18 @@ const PostDetail = () => {
       const currentDate = new Date();
       const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")} ${String(currentDate.getHours()).padStart(2, "0")}:${String(currentDate.getMinutes()).padStart(2, "0")}:${String(currentDate.getSeconds()).padStart(2, "0")}`;
       
+      if (!user_id) {
+        // User is not logged in, show warning and navigate away
+        alert("로그인 후 사용해주세요.");
+        navigate('/');
+        return; // Stop further execution
+      }
+      if (!newReply) {
+        // User is not logged in, show warning and navigate away
+        alert("내용을 입력해주세요.");
+        return; // Stop further execution
+      }
+
       const response = await axios.post(`${baseURL}/api/comment_insert_reply`, {
         cid: parentId,
         comment_detail: newReply,
