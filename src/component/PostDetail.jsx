@@ -263,7 +263,7 @@ const PostDetail = () => {
                 <>
                     <div className={styles.postHeader}>
                         <h1 className={styles.postTitle}>{post.notice_name}</h1>
-                        {user_id === post.user_name && (
+                        {user_id === post.user_name || user_id === 'lovesky00317' && (
                             <button className={styles.deleteButton} onClick={handleDelete}>
                                 삭제하기
                             </button>
