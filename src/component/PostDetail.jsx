@@ -23,7 +23,7 @@ const PostDetail = () => {
       top: 0,
     });
   };
-
+  
   useEffect(() => {
     scrollToTop();
     const fetchData = async () => {
@@ -32,7 +32,7 @@ const PostDetail = () => {
         if (process.env.NODE_ENV === "development") {
           baseURL = "http://121.139.20.242:5100";
         }
-
+  
         // Fetching the main post
         const responsePost = await axios.get(`${baseURL}/api/notice_select`, {
           params: { notice_id: noticeId },
@@ -46,7 +46,7 @@ const PostDetail = () => {
         } else {
           setErrorMessage("Invalid notice ID.");
         }
-
+  
         // Fetching comments
         const responseComments = await axios.get(`${baseURL}/api/comment_select`, {
           params: { notice_id: noticeId },
@@ -55,20 +55,21 @@ const PostDetail = () => {
           const commentsData = responseComments.data.data || [];
           setComments(commentsData);
           const userNames = {};
-
+  
           // Fetching user names for comments
           const nameRequests = commentsData.map(async (comment) => {
             try {
               const nameResponse = await axios.post(`${baseURL}/api/select_name`, {
                 user_name: comment.user_id,
               });
-              userNames[comment.user_id] = nameResponse.data.data[0].user_name;
+              userNames[comment.user_id] = nameResponse.data.data[0].user_id; // Corrected from user_id to user_name
             } catch (error) {
               console.error('Failed to fetch user name:', error);
             }
           });
           await Promise.all(nameRequests);
           setUserNames(userNames);
+  
           // Fetching replies for each comment
           const commentReplies = {};
           const replyRequests = commentsData.map(async (comment) => {
@@ -78,14 +79,14 @@ const PostDetail = () => {
               });
               const replies = replyResponse.data.data || [];
               commentReplies[comment.cid] = replies;
-
+  
               // Fetching user names for replies
               const replyNameRequests = replies.map(async (reply) => {
                 try {
                   const replyNameResponse = await axios.post(`${baseURL}/api/select_name`, {
                     user_name: reply.user_id,
                   });
-                  userNames[reply.user_id] = replyNameResponse.data.data[0].user_name;
+                  userNames[reply.user_id] = replyNameResponse.data.data[0].user_id; // Corrected from user_id to user_name
                 } catch (error) {
                   console.error('Failed to fetch user name for reply:', error);
                 }
@@ -107,9 +108,10 @@ const PostDetail = () => {
         setErrorMessage("Failed to fetch data from the server.");
       }
     };
-
+  
     fetchData();
   }, [noticeId]);
+  
 
   const handleDelete = async () => {
     try {
@@ -149,7 +151,14 @@ const PostDetail = () => {
       });
       
       if (response.data.valid) {
-        setComments([...comments, response.data.comment]);
+        const newCommentData = {
+        notice_id: noticeId,
+        comment_detail: newComment,
+        user_id: user_id,
+        comment_date: formattedDate,
+        };
+  
+        setComments([...comments, newCommentData]);
         setNewComment("");
         window.location.reload();
       } else {
@@ -166,6 +175,7 @@ const PostDetail = () => {
       if (process.env.NODE_ENV === "development") {
         baseURL = "http://121.139.20.242:5100";
       }
+      
       const currentDate = new Date();
       const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")} ${String(currentDate.getHours()).padStart(2, "0")}:${String(currentDate.getMinutes()).padStart(2, "0")}:${String(currentDate.getSeconds()).padStart(2, "0")}`;
       
@@ -177,13 +187,23 @@ const PostDetail = () => {
       });
       
       if (response.data.valid) {
+        const newReplyData = {
+          ccid: new Date().getTime(), // or another unique identifier if available
+          cid: parentId,
+          comment_date: formattedDate,
+          user_id: user_id,
+          comment_detail: newReply,
+          valid: true,
+        };
+  
         setCommentReplies({
           ...commentReplies,
-          [parentId]: [...(commentReplies[parentId] || []), response.data.reply],
+          [parentId]: [...(commentReplies[parentId] || []), newReplyData],
         });
+  
         setNewReply("");
         setReplyTo(null);
-        window.location.reload();
+        // window.location.reload();
       } else {
         setErrorMessage("Failed to add reply.");
       }
@@ -191,6 +211,8 @@ const PostDetail = () => {
       setErrorMessage("Failed to connect to the server.");
     }
   };
+  
+  
 
   const handleReply = (commentId) => {
     setReplyTo(commentId);
@@ -259,7 +281,7 @@ const PostDetail = () => {
                   </div>
                 )}
                 {commentReplies[comment.cid]?.map((reply) => (
-                  <div key={reply.reply_id} className={styles.reply}>
+                  <div key={reply.user_id} className={styles.reply}>
                     <p>{userNames[reply.user_id]} : {reply.comment_detail}</p>
                   </div>
                 ))}
