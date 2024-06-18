@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { Helmet } from 'react-helmet';
+import React, { useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { Helmet } from "react-helmet";
+import style from "./css/Root.module.css";
 
-import { createGlobalStyle } from 'styled-components';
-import styled from 'styled-components';
-import Footer from './component/Footer';
-import Navbar from './component/Navbar';
+import { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
+import Footer from "./component/Footer";
+import Navbar from "./component/Navbar";
 
 // 전역 스타일 정의
 const GlobalStyles = createGlobalStyle`
@@ -32,31 +33,31 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const AnimationContainer = styled.div`
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 `;
 
 function Root() {
-    const location = useLocation();
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const location = useLocation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    return (
-        <>
-            <Helmet>
-                <title>Damoa</title>
-            </Helmet>
-            <GlobalStyles />
-            <Navbar />
-            <TransitionGroup className="root">
-                <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
-                    <AnimationContainer>
-                        <Outlet />
-                    </AnimationContainer>
-                </CSSTransition>
-            </TransitionGroup>
-            <Footer />
-        </>
-    );
+  return (
+    <>
+      <Helmet>
+        <title>Damoa</title>
+      </Helmet>
+      <GlobalStyles />
+      <Navbar />
+      <TransitionGroup className={style.root}>
+        <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
+          <AnimationContainer>
+            <Outlet />
+          </AnimationContainer>
+        </CSSTransition>
+      </TransitionGroup>
+      <Footer />
+    </>
+  );
 }
 
 export default Root;
